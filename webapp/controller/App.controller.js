@@ -3,23 +3,66 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function(Controller, JSONModel, Filter, FilterOperator) {
+], function (Controller, JSONModel, Filter, FilterOperator) {
 	'use strict';
 
 	return Controller.extend('sap.ui.demo.todo.controller.App', {
 
-		onInit: function() {
+		onInit: function () {
 			this.aSearchFilters = [];
 			this.aTabFilters = [];
 		},
 
 		/**
-		 * Adds a new todo item to the bottom of the list.
+		 * Adds a new todo item to the bottom of the list only
+		 * if the item doesn't already exist
+		 *
+		 * @see containsTodo
+		 * @see _addTodo
 		 */
-		addTodo: function() {
+		addTodo: function () {
+			// get dom ref for input field
+			var $input = this.getView().byId("addTodoItemInput").getDomRef();
+			// remove animation css class once it finished playing
+			if (!this.eventListenerAdded) {
+				$input.addEventListener("animationend", function (oEvent) {
+					$input.classList.remove("shakeItBaby");
+				});
+				this.eventListenerAdded = true;
+			}
 			var oModel = this.getView().getModel();
 			var aTodos = jQuery.extend(true, [], oModel.getProperty('/todos'));
+			var sNewTodo = oModel.getProperty("/newTodo");
+			// only add todo if not present yet
+			if (this.containsTodo(aTodos, sNewTodo)) {
+				$input.classList.add("shakeItBaby"); // trigger shake css animation
+			} else {
+				this._addTodo(aTodos, oModel);
+			}
 
+		},
+
+		/**
+		 * checks whether a todo item already exists
+		 *
+		 * @param {array} aTodos - list of already existing Todos
+		 * @param {string} sNewTodo - todo item to add
+		 * @return {boolean} true if the todo item already exists, false otherwise
+		 */
+		containsTodo: function (aTodos, sNewTodo) {
+			return aTodos.some(function (oTodo) {
+				return oTodo.title === sNewTodo;
+			})
+		},
+
+		/**
+		 * adds the todo item to the list and resets the model value of the last added item
+		 *
+		 * @param {array} aTodos - list of already existing Todos
+		 * @param {sap.ui.model.json.JSONModel} oModel - model to add the Todo item to
+		 * @private
+		 */
+		_addTodo: function (aTodos, oModel) {
 			aTodos.push({
 				title: oModel.getProperty('/newTodo'),
 				completed: false
@@ -29,10 +72,11 @@ sap.ui.define([
 			oModel.setProperty('/newTodo', '');
 		},
 
+
 		/**
 		 * Removes all completed items from the todo list.
 		 */
-		clearCompleted: function() {
+		clearCompleted: function () {
 			var oModel = this.getView().getModel();
 			var aTodos = jQuery.extend(true, [], oModel.getProperty('/todos'));
 
@@ -50,11 +94,11 @@ sap.ui.define([
 		/**
 		 * Updates the number of items not yet completed
 		 */
-		updateItemsLeftCount: function() {
+		updateItemsLeftCount: function () {
 			var oModel = this.getView().getModel();
 			var aTodos = oModel.getProperty('/todos') || [];
 
-			var iItemsLeft = aTodos.filter(function(oTodo) {
+			var iItemsLeft = aTodos.filter(function (oTodo) {
 				return oTodo.completed !== true;
 			}).length;
 
@@ -65,7 +109,7 @@ sap.ui.define([
 		 * Trigger search for specific items. The removal of items is disable as long as the search is used.
 		 * @param {sap.ui.base.Event} oEvent Input changed event
 		 */
-		onSearch: function(oEvent) {
+		onSearch: function (oEvent) {
 			var oModel = this.getView().getModel();
 
 			// First reset current filters
@@ -84,7 +128,7 @@ sap.ui.define([
 			this._applyListFilters();
 		},
 
-		onFilter: function(oEvent) {
+		onFilter: function (oEvent) {
 
 			// First reset current filters
 			this.aTabFilters = [];
@@ -102,13 +146,13 @@ sap.ui.define([
 					break;
 				case "all":
 				default:
-					// Don't use any filter
+				// Don't use any filter
 			}
 
 			this._applyListFilters();
 		},
 
-		_applyListFilters: function() {
+		_applyListFilters: function () {
 			var oList = this.byId("todoList");
 			var oBinding = oList.getBinding("items");
 
