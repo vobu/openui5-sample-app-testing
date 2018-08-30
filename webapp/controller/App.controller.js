@@ -14,6 +14,23 @@ sap.ui.define([
 		},
 
 		/**
+		 * demonstration purpose only: retrieve todos from JSON model
+		 * async-Promise-style
+		 *
+		 * @return {Promise}
+		 */
+		getTodosViaPromise: function () {
+			return new Promise(function (fnResolve, fnReject) {
+				var oModel = this.getView().getModel();
+				if (!oModel) {
+					fnReject("couldn't load the application model")
+				} else {
+					fnResolve(oModel.getProperty("/todos"));
+				}
+			}.bind(this))
+		},
+
+		/**
 		 * Adds a new todo item to the bottom of the list only
 		 * if the item doesn't already exist
 		 *
