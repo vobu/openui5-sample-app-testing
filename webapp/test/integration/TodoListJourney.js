@@ -89,4 +89,30 @@ sap.ui.define([
 		and.iTeardownTheApp();
 	});
 
+	opaTest("again: should unselect an item", function (Given, When, Then) {
+
+		// Arrangements
+		Given.iStartTheApp();
+
+		//Actions
+		When.onTheAppPage.iEnterTextForNewItemAndPressEnter("my test")
+			.and.iSelectAllItems(true)
+			.and.iClearTheCompletedItems();
+
+		// manually forced break point
+		When.waitFor({
+			success: function() {
+				debugger;
+			}
+		});
+
+		When.onTheAppPage.iEnterTextForNewItemAndPressEnter("my test")
+			.and.iSelectTheLastItem(true)
+			.and.iSelectTheLastItem(false);
+
+		// Assertions
+		Then.onTheAppPage.iShouldSeeTheLastItemBeingCompleted(false).
+		and.iTeardownTheApp();
+	});
+
 });
