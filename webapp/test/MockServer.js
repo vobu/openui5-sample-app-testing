@@ -47,7 +47,8 @@ sap.ui.define([
 
 			// load local mock data (if there's any)
 			this.oMockServer.simulate(sMetadataUrl, {
-				sMockdataBaseUrl: sJsonFilesUrl
+				sMockdataBaseUrl: sJsonFilesUrl,
+				bGenerateMissingMockData: true
 			});
 
 			// attach pre-processing- and post-processing-actions

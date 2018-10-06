@@ -22,7 +22,7 @@
 			</EntityType>
 			<EntityContainer Name="SRV_Entities" m:IsDefaultEntityContainer="true"
 							 sap:supported-formats="atom json xlsx">
-				<EntitySet Name="TodoItems" EntityType="SRV.TodoItem" sap:creatable="true" sap:updatable="true"
+				<EntitySet Name="todos" EntityType="SRV.TodoItem" sap:creatable="true" sap:updatable="true"
 						   sap:deletable="true" sap:pageable="true" sap:addressable="true" sap:content-version="1"/>
 				<FunctionImport Name="ClearCompleted" ReturnType="SRV.ClearCompletedResult" m:HttpMethod="POST"
 								sap:label="Clear completed items"/>
