@@ -32,9 +32,15 @@
 		  "bundleName": "sap.ui.demo.todo.i18n.i18n"
 		}
 	  },
-	  "": {
+	  "appView": {
 		"type": "sap.ui.model.json.JSONModel",
-		"uri": "model/todoitems.json"
+		"uri": "model/appView.json"
+	  },
+	  "": {
+		"dataSource": "mainService",
+		"settings": {
+		  "defaultBindingMode": "TwoWay"
+		}
 	  }
 	},
 	"resources": {
