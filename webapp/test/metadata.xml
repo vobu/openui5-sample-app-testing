@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx
+		Version="1.0"
+		xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+		xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+		xmlns:sap="http://www.sap.com/Protocols/SAPData"
+>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="SRV" xml:lang="en" sap:schema-version="1"
+				xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="TodoItem" sap:content-version="1">
+				<Key>
+					<PropertyRef Name="guid"/>
+				</Key>
+				<Property Name="guid" Type="Edm.Guid" sap:label="GUID" Nullable="false" sap:unicode="false"
+						  sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"
+						  sap:visible="false"/>
+				<Property Name="title" Type="Edm.String" MaxLength="200" sap:label="Title" Nullable="false"
+						  sap:unicode="false" sap:creatable="true" sap:updatable="true"/>
+				<Property Name="completed" Type="Edm.Boolean" sap:label="Completed" sap:display-format="Date"
+						  Nullable="true" sap:unicode="false" sap:creatable="false" sap:updatable="true"/>
+			</EntityType>
+			<EntityContainer Name="SRV_Entities" m:IsDefaultEntityContainer="true"
+							 sap:supported-formats="atom json xlsx">
+				<EntitySet Name="TodoItems" EntityType="SRV.TodoItem" sap:creatable="true" sap:updatable="true"
+						   sap:deletable="true" sap:pageable="true" sap:addressable="true" sap:content-version="1"/>
+				<FunctionImport Name="ClearCompleted" ReturnType="SRV.ClearCompletedResult" m:HttpMethod="POST"
+								sap:label="Clear completed items"/>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

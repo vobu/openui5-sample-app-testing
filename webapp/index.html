@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 
 	<script id="sap-ui-bootstrap" type="text/javascript"
-		src="resources/sap-ui-core.js"
+		src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
 		data-sap-ui-theme="sap_belize"
 		data-sap-ui-libs="sap.m"
 		data-sap-ui-bindingSyntax="complex"
@@ -18,8 +18,10 @@
 	<script>
 		sap.ui.getCore().attachInit(function() {
 			sap.ui.require([
-				"sap/ui/core/ComponentContainer"
-			], function(ComponentContainer) {
+				"sap/ui/core/ComponentContainer",
+				"sap/ui/demo/todo/test/MockServer"
+			], function(ComponentContainer, MockServer) {
+				MockServer.init(jQuery.sap.getUriParameters());
 				new ComponentContainer({
 					name: "sap.ui.demo.todo",
 					settings: {
