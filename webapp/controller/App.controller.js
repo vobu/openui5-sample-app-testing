@@ -112,11 +112,10 @@ sap.ui.define([
 		 * Updates the number of items not yet completed
 		 */
 		updateItemsLeftCount: function () {
-			var oModel = this.getView().getModel();
-			var aTodos = oModel.getProperty('/todos') || [];
+			var oModel = this.getView().getModel("appView");
 
-			var iItemsLeft = aTodos.filter(function (oTodo) {
-				return oTodo.completed !== true;
+			var iItemsLeft = this.getView().byId("todoList").getItems().filter(function (oTodo) {
+				return oTodo.getSelected() !== true;
 			}).length;
 
 			oModel.setProperty('/itemsLeftCount', iItemsLeft);
