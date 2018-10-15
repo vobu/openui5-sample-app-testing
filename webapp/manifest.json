@@ -41,6 +41,10 @@
 		"settings": {
 		  "defaultBindingMode": "TwoWay"
 		}
+	  },
+	  "original": {
+		"type": "sap.ui.model.json.JSONModel",
+		"uri": "model/todoitems.json"
 	  }
 	},
 	"resources": {

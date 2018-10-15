@@ -21,8 +21,6 @@
    						  }"
 						  mode="MultiSelect"
 						  selectionChange="updateItemsLeftCount"
-						  growing="true"
-						  growingScrollToLoad="true"
 						  showNoData="false"
 						  showSeparators="None"
 						  rememberSelections="false">

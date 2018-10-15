@@ -11,6 +11,17 @@ sap.ui.define([
 		onInit: function () {
 			this.aSearchFilters = [];
 			this.aTabFilters = [];
+			// use original json or mockserver OData model at runtime
+			// depending on the presence of "sap-ui-mockserver" as a URL param
+			var oView = this.getView();
+			if (!oView) { return; } // avoid dependencies in non-DOM environment
+			var oOriginalJSONModel = oView.getModel("original");
+			var oODataModel = oView.getModel("");
+			if (jQuery.sap.getUriParameters().get("sap-ui-mockserver")) {
+				oView.setModel(oODataModel)
+			} else {
+				oView.setModel(oOriginalJSONModel);
+			}
 		},
 
 		/**

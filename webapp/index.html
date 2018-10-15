@@ -21,7 +21,11 @@
 				"sap/ui/core/ComponentContainer",
 				"sap/ui/demo/todo/test/MockServer"
 			], function(ComponentContainer, MockServer) {
-				MockServer.init(jQuery.sap.getUriParameters());
+				// turn on mockserver if "sap-ui-mockserver" is present as a URL param
+				var oUriParameters = jQuery.sap.getUriParameters();
+				if (oUriParameters.get("sap-ui-mockserver")) {
+					MockServer.init(oUriParameters);
+				}
 				new ComponentContainer({
 					name: "sap.ui.demo.todo",
 					settings: {
