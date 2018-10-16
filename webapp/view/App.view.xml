@@ -12,7 +12,7 @@
 					</Toolbar>
 				</subHeader>
 				<content>
-					<Input class="todoInput" id="addTodoItemInput" value="{/newTodo}"
+					<Input class="todoInput" id="addTodoItemInput" value="{new>/newTodo}"
 						   placeholder="{i18n>INPUT_PLACEHOLDER}" change="addTodo"/>
 					<List id="todoList"
 						  items="{

@@ -45,6 +45,9 @@
 	  "original": {
 		"type": "sap.ui.model.json.JSONModel",
 		"uri": "model/todoitems.json"
+	  },
+	  "new": {
+		"type": "sap.ui.model.json.JSONModel"
 	  }
 	},
 	"resources": {

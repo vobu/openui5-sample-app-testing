@@ -1,0 +1,12 @@
+[
+  {
+	"guid": "67e2793d-f4d4-4d79-9fc8-f753b80728ba",
+	"title": "Start this app",
+	"completed": true
+  },
+  {
+	"guid": "67e2793d-f4d4-4d79-9fc8-f753b80728bb",
+	"title": "Learn OpenUI5",
+	"completed": false
+  }
+]

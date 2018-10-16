@@ -42,6 +42,20 @@ sap.ui.define([
 		},
 
 		/**
+		 * create a pseudo-random GUID;
+		 * algorithm copied from https://veerasundar.com/blog/2013/01/underscore-js-and-guid-function/
+		 *
+		 * @returns {string} a GUID
+		 */
+		makeGuid: function() {
+			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(sChar) {
+				var iInt = Math.random()*16|0;
+				var sGuidChar = sChar === 'x' ? iInt : (iInt&0x3|0x8);
+				return sGuidChar.toString(16);
+			});
+		},
+
+		/**
 		 * Adds a new todo item to the bottom of the list only
 		 * if the item doesn't already exist
 		 *
@@ -49,23 +63,39 @@ sap.ui.define([
 		 * @see _addTodo
 		 */
 		addTodo: function () {
-			// get dom ref for input field
-			var $input = this.getView().byId("addTodoItemInput").getDomRef();
-			// remove animation css class once it finished playing
-			if (!this.eventListenerAdded) {
-				$input.addEventListener("animationend", function (oEvent) {
-					$input.classList.remove("shakeItBaby");
-				});
-				this.eventListenerAdded = true;
-			}
 			var oModel = this.getView().getModel();
-			var aTodos = jQuery.extend(true, [], oModel.getProperty('/todos'));
-			var sNewTodo = oModel.getProperty("/newTodo");
-			// only add todo if not present yet
-			if (this.containsTodo(aTodos, sNewTodo)) {
-				$input.classList.add("shakeItBaby"); // trigger shake css animation
+			var oNewTodoModel = this.getView().getModel("new");
+
+			// bridge logic whether we're mockserver-ing or
+			// working with local json model(s)
+			if (jQuery.sap.getUriParameters().get("sap-ui-mockserver")) {
+				var sGuid = this.makeGuid();
+				var sTitle = oNewTodoModel.getProperty("/newTodo");
+				var oPayload = {
+					"guid": sGuid,
+					"title": sTitle,
+					"completed": false
+				};
+				oModel.create("/todos", oPayload);
 			} else {
-				this._addTodo(aTodos, oModel);
+				// get dom ref for input field
+				var $input = this.getView().byId("addTodoItemInput").getDomRef();
+				// remove animation css class once it finished playing
+				if (!this.eventListenerAdded) {
+					$input.addEventListener("animationend", function (oEvent) {
+						$input.classList.remove("shakeItBaby");
+					});
+					this.eventListenerAdded = true;
+				}
+
+				var aTodos = jQuery.extend(true, [], oModel.getProperty('/todos'));
+				var sNewTodo = oNewTodoModel.getProperty("/newTodo");
+				// only add todo if not present yet
+				if (this.containsTodo(aTodos, sNewTodo)) {
+					$input.classList.add("shakeItBaby"); // trigger shake css animation
+				} else {
+					this._addTodo(aTodos, oNewTodoModel, oModel);
+				}
 			}
 
 		},
@@ -87,17 +117,18 @@ sap.ui.define([
 		 * adds the todo item to the list and resets the model value of the last added item
 		 *
 		 * @param {array} aTodos - list of already existing Todos
-		 * @param {sap.ui.model.json.JSONModel} oModel - model to add the Todo item to
+		 * @param {sap.ui.model.json.JSONModel} oNewTodoModel - model to add the Todo item to
+		 * @param {sap.ui.model.json.JSONModel} oTodoModel - model holding all todos
 		 * @private
 		 */
-		_addTodo: function (aTodos, oModel) {
+		_addTodo: function (aTodos, oNewTodoModel, oTodoModel) {
 			aTodos.push({
-				title: oModel.getProperty('/newTodo'),
+				title: oNewTodoModel.getProperty('/newTodo'),
 				completed: false
 			});
 
-			oModel.setProperty('/todos', aTodos);
-			oModel.setProperty('/newTodo', '');
+			oTodoModel.setProperty('/todos', aTodos);
+			oNewTodoModel.setProperty('/newTodo', '');
 		},
 
 
