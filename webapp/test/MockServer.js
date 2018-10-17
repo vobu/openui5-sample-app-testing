@@ -42,7 +42,7 @@ sap.ui.define([
 			// configure mock server with a potential delay
 			MockServer.config({
 				autoRespond: true,
-				autoRespondAfter: (oParameters.get("mockserverDelay") || 0)
+				autoRespondAfter: (oParameters.get("sap-ui-mockserver-delay") || 0)
 			});
 
 			// load local mock data (if there's any)
