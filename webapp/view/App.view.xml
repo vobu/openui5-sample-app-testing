@@ -23,7 +23,8 @@
 						  selectionChange="updateItemsLeftCount"
 						  showNoData="false"
 						  showSeparators="None"
-						  rememberSelections="false">
+						  rememberSelections="false"
+						  busyIndicatorDelay="0">
 						<infoToolbar>
 							<Toolbar>
 								<Label id="itemsLeftLabel" text="{appView>/itemsLeftCount}"/>
