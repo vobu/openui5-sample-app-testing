@@ -48,6 +48,7 @@ sap.ui.define([
 		var oController = new AppController();
 		// regular init of a JSON model
 		var oJsonModelStub = new JSONModel({});
+		var oNewToDoModelStub = new JSONModel({});
 		// construct a dummy DOM element
 		var oDomElementStub = document.createElement("div");
 		// construct a dummy View
@@ -64,13 +65,14 @@ sap.ui.define([
 
 		// regular setting of a model to a View
 		oViewStub.setModel(oJsonModelStub);
+		oViewStub.setModel(oNewToDoModelStub, "new");
 
 		// stubbing Controller.getView() to return our dummy view object
 		var oGetViewStub = sinon.stub(Controller.prototype, "getView").returns(oViewStub);
 		//// end arrangements
 
 		// prepare data model for controller method
-		oJsonModelStub.setProperty("/newTodo", "some new item");
+		oNewToDoModelStub.setProperty("/newTodo", "some new item");
 
 		// actual test call!
 		oController.addTodo();
