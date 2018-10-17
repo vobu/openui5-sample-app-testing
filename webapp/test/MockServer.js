@@ -19,7 +19,7 @@ sap.ui.define([
 		 * mockserver creation
 		 * - finds manifest.json and attaches to configured "main service" datasource there
 		 * - reads metadata.xml from /webapp/test
-		 * - set response time to immediate or otherwise specified ms in URL via "mockserverDelay=<n>"
+		 * - set response time to immediate or otherwise specified ms in URL via "sap-ui-mockserver-delay=<n>"
 		 * - sets base mockdata folder to /webapp/test/mockdata
 		 * - potential additonal logging activated via URL parameter sap-ui-mockserver-debug=true
 		 * @param oParameters
