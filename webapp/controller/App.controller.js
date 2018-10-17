@@ -137,17 +137,27 @@ sap.ui.define([
 		 */
 		clearCompleted: function () {
 			var oModel = this.getView().getModel();
-			var aTodos = jQuery.extend(true, [], oModel.getProperty('/todos'));
+			if (jQuery.sap.getUriParameters().get("sap-ui-mockserver")) {
+				this.byId("todoList").getItems().forEach( function (oItem) {
+					if (oItem.getProperty("selected")) {
+						var sPath = oItem.getBindingContext().getPath();
+						oModel.remove(sPath)
+					}
+				});
 
-			var i = aTodos.length;
-			while (i--) {
-				var oTodo = aTodos[i];
-				if (oTodo.completed) {
-					aTodos.splice(i, 1);
+			} else {
+				var aTodos = jQuery.extend(true, [], oModel.getProperty('/todos'));
+
+				var i = aTodos.length;
+				while (i--) {
+					var oTodo = aTodos[i];
+					if (oTodo.completed) {
+						aTodos.splice(i, 1);
+					}
 				}
-			}
 
-			oModel.setProperty('/todos', aTodos);
+				oModel.setProperty('/todos', aTodos);
+			}
 		},
 
 		/**

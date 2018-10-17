@@ -2,11 +2,23 @@
 
 sap.ui.define([
 	"sap/ui/test/opaQunit",
+	"sap/ui/demo/todo/test/MockServer",
 	"sap/ui/demo/todo/test/integration/pages/App"
-], function (opaTest) {
+], function (opaTest, MockServer) {
 	"use strict";
 
-	QUnit.module("Todo List");
+	QUnit.module("Todo List", {
+		beforeEach: function () {
+			if (_global.mockserver) {
+				this.oMockserver = MockServer.init(_global.mockserverParameters);
+			}
+		},
+		afterEach: function () {
+			if (this.oMockserver) {
+				this.oMockserver.shutdown();
+			}
+		}
+	});
 
 	opaTest("should add an item", function (Given, When, Then) {
 
@@ -30,10 +42,10 @@ sap.ui.define([
 		When.onTheAppPage.iEnterTextForNewItemAndPressEnter("my test")
 			.and.iSelectAllItems(true)
 			.and.iClearTheCompletedItems()
-			.and.iEnterTextForNewItemAndPressEnter("my test");
+			.and.iEnterTextForNewItemAndPressEnter("my test2");
 
 		// Assertions
-		Then.onTheAppPage.iShouldSeeAllButOneItemBeingRemoved("my test").
+		Then.onTheAppPage.iShouldSeeAllButOneItemBeingRemoved("my test2").
 			and.iTeardownTheApp();
 	});
 
@@ -60,7 +72,7 @@ sap.ui.define([
 		When.onTheAppPage.iEnterTextForNewItemAndPressEnter("my test")
 			.and.iSelectAllItems(true)
 			.and.iClearTheCompletedItems()
-			.and.iEnterTextForNewItemAndPressEnter("my test")
+			.and.iEnterTextForNewItemAndPressEnter("my test2")
 			.and.iSelectTheLastItem(true)
 			.and.iSelectTheLastItem(false);
 
@@ -100,13 +112,13 @@ sap.ui.define([
 			.and.iClearTheCompletedItems();
 
 		// manually forced break point
-		When.waitFor({
-			success: function() {
-				debugger;
-			}
-		});
+		// When.waitFor({
+		// 	success: function() {
+		// 		debugger;
+		// 	}
+		// });
 
-		When.onTheAppPage.iEnterTextForNewItemAndPressEnter("my test")
+		When.onTheAppPage.iEnterTextForNewItemAndPressEnter("my test2")
 			.and.iSelectTheLastItem(true)
 			.and.iSelectTheLastItem(false);
 

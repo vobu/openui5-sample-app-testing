@@ -19,10 +19,16 @@
 
 		<script>
 			QUnit.config.autostart = false;
+			_global = {};
 			sap.ui.getCore().attachInit(function() {
 				sap.ui.require([
 					"sap/ui/demo/todo/test/integration/AllJourneys"
 				], function() {
+					var oUriParameters = jQuery.sap.getUriParameters();
+					if (oUriParameters.get("sap-ui-mockserver")) {
+						_global.mockserver = true;
+						_global.mockserverParameters = oUriParameters;
+					}
 					QUnit.start();
 				});
 			});

@@ -74,7 +74,8 @@ sap.ui.define([
 				"   metadata from " + sMetadataUrl + "\n" +
 				"   mockdata dir: " + sJsonFilesUrl);
 
-			return this.oMockServer;
+			// return this.oMockServer;
+			return this;
 		},
 
 		shutdown: function () {
