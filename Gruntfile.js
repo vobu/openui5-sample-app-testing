@@ -2,6 +2,10 @@
 
 module.exports = function(grunt) {
 
+	if (!grunt.option("browsers")) {
+		grunt.option("browsers", "ChromeHeadless");
+	}
+
 	grunt.initConfig({
 
 		connect: {
@@ -123,9 +127,40 @@ module.exports = function(grunt) {
 				},
 				browsers: ['ChromeHeadless']
 			},
+			multibrowser: {
+				browsers: grunt.option("browsers").split(",")
+			},
 			ci: {
 				singleRun: true,
 				browsers: ['ChromeHeadless'],
+				preprocessors: {
+					'{webapp,webapp/!(test)}/*.js': ['coverage']
+				},
+				coverageReporter: {
+					includeAllSources: true,
+					reporters: [
+						{
+							type: 'html',
+							dir: '../coverage/'
+						},
+						{
+							type: 'text'
+						}
+					],
+					check: {
+						each: {
+							statements: 100,
+							branches: 100,
+							functions: 100,
+							lines: 100
+						}
+					}
+				},
+				reporters: ['progress', 'coverage']
+			},
+			cimultibrowser: {
+				singleRun: true,
+				browsers: grunt.option("browsers").split(","),
 				preprocessors: {
 					'{webapp,webapp/!(test)}/*.js': ['coverage']
 				},
@@ -202,7 +237,9 @@ module.exports = function(grunt) {
 
 	// Test tasks
 	grunt.registerTask('test', ['clean:coverage', 'openui5_connect:src', 'karma:ci']);
+	grunt.registerTask('testMultiBrowser', ['clean:coverage', 'openui5_connect:src', 'karma:cimultibrowser']);
 	grunt.registerTask('watch', ['openui5_connect:src', 'karma:watch']);
+	grunt.registerTask('watchMultiBrowser', ['openui5_connect:src', 'karma:multibrowser']);
 	grunt.registerTask('coverage', ['clean:coverage', 'openui5_connect:src', 'karma:coverage']);
 
 	// Build task
