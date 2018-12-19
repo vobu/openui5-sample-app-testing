@@ -121,11 +121,11 @@ module.exports = function(grunt) {
 				browserConsoleLogOptions: {
 					level: 'warn'
 				},
-				browsers: ['Chrome']
+				browsers: ['ChromeHeadless']
 			},
 			ci: {
 				singleRun: true,
-				browsers: ['PhantomJS'],
+				browsers: ['ChromeHeadless'],
 				preprocessors: {
 					'{webapp,webapp/!(test)}/*.js': ['coverage']
 				},
@@ -159,9 +159,10 @@ module.exports = function(grunt) {
 					}
 				}
 			},
+
 			coverage: {
 				singleRun: true,
-				browsers: ['PhantomJS'],
+				browsers: ['ChromeHeadless'],
 				preprocessors: {
 					'{webapp,webapp/!(test)}/*.js': ['coverage']
 				},
