@@ -98,7 +98,8 @@ module.exports = function(grunt) {
 				basePath: 'webapp',
 				frameworks: ['qunit', 'openui5'],
 				openui5: {
-					path: 'http://localhost:8080/resources/sap-ui-core.js'
+					// path: 'http://localhost:8080/resources/sap-ui-core.js'
+					path: 'http://openui5.hana.ondemand.com/resources/sap-ui-core.js'
 				},
 				client: {
 					openui5: {

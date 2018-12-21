@@ -2,9 +2,10 @@
 
 sap.ui.define([
 	"sap/ui/test/opaQunit",
+	"sap/ui/test/Opa5",
 	"sap/ui/demo/todo/test/MockServer",
 	"sap/ui/demo/todo/test/integration/pages/App"
-], function (opaTest, MockServer) {
+], function (opaTest, Opa5, MockServer) {
 	"use strict";
 
 	QUnit.module("Todo List", {
@@ -20,7 +21,16 @@ sap.ui.define([
 		}
 	});
 
-	opaTest("should add an item", function (Given, When, Then) {
+	opaTodo("representing something in development that is expected to fail for the time being", function (Given, When, Then) {
+		Then.waitFor({
+			success: function () {
+				Opa5.assert.ok(false, "Quantum state!")
+			}
+		})
+	});
+
+
+	opaSkip("should add an item", function (Given, When, Then) {
 
 		// Arrangements
 		Given.iStartTheApp();
