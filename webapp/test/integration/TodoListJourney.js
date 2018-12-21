@@ -29,8 +29,10 @@ sap.ui.define([
 		})
 	});
 
+	opaSkip("skipped integration test");
 
-	opaSkip("should add an item", function (Given, When, Then) {
+
+	opaTest("should add an item", function (Given, When, Then) {
 
 		// Arrangements
 		Given.iStartTheApp();
