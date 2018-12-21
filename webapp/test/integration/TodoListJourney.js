@@ -4,11 +4,17 @@ sap.ui.define([
 	"sap/ui/test/opaQunit",
 	"sap/ui/test/Opa5",
 	"sap/ui/demo/todo/test/MockServer",
-	"sap/ui/demo/todo/test/integration/pages/App"
-], function (opaTest, Opa5, MockServer) {
+	"sap/ui/demo/todo/test/integration/pages/App",
+	"sap/ui/demo/todo/lib/chance"
+], function (opaTest, Opa5, MockServer /*App, chance*/) {
 	"use strict";
 
 	QUnit.module("Todo List", {
+		before: function() {
+			var sPool = "🌎🎉🖥⌘😱👻🦋";
+			sPool += "aöüäßÄÖÜÃÁÀÖḍçḛéèê";
+			this.sRandomUnicodeString = chance.string({ pool: sPool });
+		},
 		beforeEach: function () {
 			if (_global.mockserver) {
 				this.oMockserver = MockServer.init(_global.mockserverParameters);
@@ -41,8 +47,11 @@ sap.ui.define([
 		When.onTheAppPage.iEnterTextForNewItemAndPressEnter("my test");
 
 		// Assertions
-		Then.onTheAppPage.iShouldSeeTheItemBeingAdded(3, "my test").
-			and.iTeardownTheApp();
+		Then.onTheAppPage.iShouldSeeTheItemBeingAdded(3, "my test");
+
+		When.onTheAppPage.iEnterTextForNewItemAndPressEnter(this.sRandomUnicodeString);
+		Then.onTheAppPage.iShouldSeeTheItemBeingAdded(4, this.sRandomUnicodeString)
+			.and.iTeardownTheApp();
 	});
 
 	opaTest("should remove a completed item", function (Given, When, Then) {
