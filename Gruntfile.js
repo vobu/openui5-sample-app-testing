@@ -197,7 +197,7 @@ module.exports = function(grunt) {
 
 			coverage: {
 				singleRun: true,
-				browsers: ['ChromeHeadless'],
+				browsers: grunt.option("browsers").split(","),
 				preprocessors: {
 					'{webapp,webapp/!(test)}/*.js': ['coverage']
 				},
