@@ -1,3 +1,5 @@
 {
-	"itemsLeftCount": 0
+  "itemsLeftCount": 0,
+  "pageBackgroundDesign": "Solid",
+  "deleteIcon": "sap-icon://clear-filter"
 }

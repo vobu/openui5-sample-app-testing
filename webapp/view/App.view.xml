@@ -2,7 +2,7 @@
 		  displayBlock="true">
 	<Shell>
 		<App>
-			<Page title="{i18n>TITLE}" backgroundDesign="Solid">
+			<Page title="{i18n>TITLE}" backgroundDesign="{appView>/pageBackgroundDesign}">
 				<subHeader>
 					<Toolbar>
 						<SearchField
@@ -49,7 +49,7 @@
 							</SegmentedButton>
 						</contentMiddle>
 						<contentRight>
-							<Button id="clearCompleted" enabled="{/itemsRemovable}" icon="sap-icon://delete"
+							<Button id="clearCompleted" enabled="{/itemsRemovable}" icon="{appView>/deleteIcon}"
 									text="{i18n>CLEAR_COMPLETED}" press="clearCompleted"/>
 						</contentRight>
 					</Bar>
