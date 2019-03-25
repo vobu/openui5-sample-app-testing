@@ -1,0 +1,36 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+		  xmlns="sap.m"
+		  xmlns:todo="sap.ui.demo.todo.control"
+		  xmlns:dnd="sap.ui.core.dnd"
+		  controllerName="sap.ui.demo.todo.controller.App"
+		  displayBlock="true">
+	<Shell>
+		<App>
+			<Page title="{i18n>TITLE}" backgroundDesign="{appView>/pageBackgroundDesign}">
+				<content>
+					<todo:Input/>
+					<Table>
+						<dnd:DragDropInfo
+								sourceAggregation="items"
+								drop="onDrop"
+						/>
+						<columns>
+							<Column>
+								<Text text="Name"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="item 1"/>
+									<Text text="item 2"/>
+									<Text text="item 3"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</App>
+	</Shell>
+</mvc:View>
