@@ -182,3 +182,4 @@ Temporary Items
 .idea/openui5-sample-app-testing.iml
 .idea/vcs.xml
 /.idea/encodings.xml
+/webapp/test/e2e/target/report/
