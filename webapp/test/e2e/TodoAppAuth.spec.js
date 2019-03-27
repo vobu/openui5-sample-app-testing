@@ -3,5 +3,4 @@ describe('TodoAppAuth', function () {
 	it('should authenticate against SAP CP Cloud ID', function () {
 		expect(true).toBeFalsy();
 	});
-
 });
