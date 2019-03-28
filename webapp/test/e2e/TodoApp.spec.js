@@ -35,7 +35,7 @@ describe('TodoApp', function () {
 		// })
 
 	});
-	it('should filter the todo list, resuting in 1 item only', function () {
+	it('should filter the todo list, resulting in 1 item only', function () {
 		// showcasing .click()
 		var FilterButton = element(by.control({
 			id: 'filterButton-active',
@@ -55,9 +55,44 @@ describe('TodoApp', function () {
 		// })
 	});
 
-	it("should add a new todo list item 'sitFFM 2019'", function() {
-		// showcasing .keys()
-		expect(true).toBeFalsy();
+	it("resets filter, then should add a new todo list item 'sitFFM 2019'", function () {
+		// reset "active" filter
+		element(by.control({
+			id: 'filterButton-all',
+			viewName: viewNS + 'App'
+		})).click();
+
+		// showcasing .sendKeys() + Enter press
+		var InputField = element(by.control({
+			id: 'addTodoItemInput',
+			viewName: viewNS + 'App'
+		}));
+
+		InputField.sendKeys("sitFFM 2019" + protractor.Key.ENTER);
+
+		var Inputs = element.all(by.control({
+			id: /^(?!.*addTodoItemInput)/, // nothing with an ID containing addTodoItemInput
+			controlType: "sap.m.Input"
+		}));
+
+		var aResults = Inputs.map(function (oInput) {
+			return oInput.asControl().getProperty("value");
+		});
+
+
+		expect(aResults).toEqual([
+			"Start this app",
+			"Learn OpenUI5",
+			"sitFFM 2019"
+		]);
+
+		//// "debug" notation
+		// aResults.then( function (vValue) {
+		// 	"";
+		// }).catch( function (oError) {
+		// 	"";
+		// })
+
 	});
 
 });
