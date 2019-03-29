@@ -1,4 +1,5 @@
 'use strict';
+const authRequest = require('grunt-connect-http-auth/lib/utils').authRequest;
 
 module.exports = function(grunt) {
 
@@ -9,7 +10,17 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 
 		connect: {
+			auth:{
+				authRealm : "sitFFM demo (sitFFM/rockz)",
+				authList : ['sitFFM:rockz']
+			},
 			options: {
+				middleware: function(connect, options, middlewares) {
+					if (grunt.option('useBasicAuth')) {
+						middlewares.push(authRequest);
+					}
+					return middlewares;
+				},
 				port: 8080,
 				hostname: '*'
 			},
@@ -227,9 +238,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-openui5');
 	grunt.loadNpmTasks('grunt-eslint');
 	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks('grunt-connect-http-auth');
 
 	// Server task
 	grunt.registerTask('serve', function(target) {
+		if (grunt.option('useBasicAuth')) {
+			grunt.task.run('configureHttpAuth');
+		}
 		grunt.task.run('openui5_connect:' + (target || 'src') + ':keepalive');
 	});
 
