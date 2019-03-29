@@ -1,7 +1,9 @@
+/*global by, describe, expect, element, it, protractor*/
+
 describe('TodoApp', function () {
 	var viewNS = 'sap.ui.demo.todo.view.';
 	it('should see the todo list w/ 2 items', function () {
-		var List = element(by.control({
+		const List = element(by.control({
 			id: 'todoList',
 			viewName: viewNS + 'App',
 			aggregationFilled: {
@@ -14,7 +16,7 @@ describe('TodoApp', function () {
 			// }
 		}));
 
-		var ListItems = element.all(by.control({
+		const ListItems = element.all(by.control({
 			controlType: "sap.m.CustomListItem",
 			viewName: viewNS + 'App'
 		}));
@@ -22,14 +24,14 @@ describe('TodoApp', function () {
 		expect(List.getAttribute("id")).toContain("todoList");
 		expect(ListItems.count()).toEqual(2);
 
-		//// verbose Promise style
-		// List.getAttribute("id").then( function (sId) {
+		// // verbose Promise style
+		// List.getAttribute("id").then(sId => {
 		// 	return expect(sId).toContain("todoList");
-		// }).then( function () {
+		// }).then(() => {
 		// 	return ListItems.count();
-		// }).then( function (iListItems) {
+		// }).then(iListItems => {
 		// 	return expect(iListItems).toEqual(2);
-		// }).catch(function (oError) {
+		// }).catch(oError => {
 		// 	// oh no!
 		// 	console.error(oError);
 		// })
@@ -37,12 +39,12 @@ describe('TodoApp', function () {
 	});
 	it('should filter the todo list, resulting in 1 item only', function () {
 		// showcasing .click()
-		var FilterButton = element(by.control({
+		const FilterButton = element(by.control({
 			id: 'filterButton-active',
 			viewName: viewNS + 'App'
 		}));
 
-		var ListItems = element.all(by.control({
+		const ListItems = element.all(by.control({
 			controlType: "sap.m.CustomListItem",
 			viewName: viewNS + 'App'
 		}));
@@ -50,7 +52,7 @@ describe('TodoApp', function () {
 		FilterButton.click();
 		expect(ListItems.count()).toEqual(1);
 
-		// ListItems.count().then(function (iResult) {
+		// ListItems.count().then(iResult => {
 		// 	"";
 		// })
 	});
@@ -58,29 +60,27 @@ describe('TodoApp', function () {
 	it("add a new todo list item 'sitFFM 2019'", function () {
 
 		// showcasing .sendKeys() + Enter press
-		var InputField = element(by.control({
+		const InputField = element(by.control({
 			id: 'addTodoItemInput',
 			viewName: viewNS + 'App'
 		}));
 
 		InputField.sendKeys("sitFFM 2019" + protractor.Key.ENTER);
 
-		var Inputs = element.all(by.control({
+		const Inputs = element.all(by.control({
 			id: /^(?!.*addTodoItemInput)/, // nothing with an ID containing addTodoItemInput
 			controlType: "sap.m.Input"
 		}));
 
-		var aResults = Inputs.map(function (oInput) {
-			return oInput.asControl().getProperty("value");
-		});
+		const aResults = Inputs.map(oInput => oInput.asControl().getProperty("value"));
 
 
 		expect(aResults).toContain("sitFFM 2019");
 
-		//// "debug" notation
-		// aResults.then( function (vValue) {
+		// "debug" notation
+		// aResults.then(vValue => {
 		// 	"";
-		// }).catch( function (oError) {
+		// }).catch(oError => {
 		// 	"";
 		// })
 
