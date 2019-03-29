@@ -1,11 +1,11 @@
-/*global by, describe, expect, element, it, protractor*/
+/*global protractor*/
 
 describe('TodoApp', function () {
-	var viewNS = 'sap.ui.demo.todo.view.';
+	const viewNS = 'sap.ui.demo.todo.view.';
 	it('should see the todo list w/ 2 items', function () {
 		const List = element(by.control({
 			id: 'todoList',
-			viewName: viewNS + 'App',
+			viewName: `${viewNS}App`,
 			aggregationFilled: {
 				name: 'items'
 			}
@@ -17,8 +17,8 @@ describe('TodoApp', function () {
 		}));
 
 		const ListItems = element.all(by.control({
-			controlType: "sap.m.CustomListItem",
-			viewName: viewNS + 'App'
+			controlType: 'sap.m.CustomListItem',
+			viewName: `${viewNS}App`
 		}));
 
 		expect(List.getAttribute("id")).toContain("todoList");
@@ -41,12 +41,12 @@ describe('TodoApp', function () {
 		// showcasing .click()
 		const FilterButton = element(by.control({
 			id: 'filterButton-active',
-			viewName: viewNS + 'App'
+			viewName: `${viewNS}App`
 		}));
 
 		const ListItems = element.all(by.control({
-			controlType: "sap.m.CustomListItem",
-			viewName: viewNS + 'App'
+			controlType: 'sap.m.CustomListItem',
+			viewName: `${viewNS}App`
 		}));
 
 		FilterButton.click();
@@ -62,7 +62,7 @@ describe('TodoApp', function () {
 		// showcasing .sendKeys() + Enter press
 		const InputField = element(by.control({
 			id: 'addTodoItemInput',
-			viewName: viewNS + 'App'
+			viewName: `${viewNS}App`
 		}));
 
 		InputField.sendKeys("sitFFM 2019" + protractor.Key.ENTER);
