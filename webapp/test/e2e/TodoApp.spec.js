@@ -55,12 +55,7 @@ describe('TodoApp', function () {
 		// })
 	});
 
-	it("resets filter, then should add a new todo list item 'sitFFM 2019'", function () {
-		// reset "active" filter
-		element(by.control({
-			id: 'filterButton-all',
-			viewName: viewNS + 'App'
-		})).click();
+	it("add a new todo list item 'sitFFM 2019'", function () {
 
 		// showcasing .sendKeys() + Enter press
 		var InputField = element(by.control({
@@ -80,11 +75,7 @@ describe('TodoApp', function () {
 		});
 
 
-		expect(aResults).toEqual([
-			"Start this app",
-			"Learn OpenUI5",
-			"sitFFM 2019"
-		]);
+		expect(aResults).toContain("sitFFM 2019");
 
 		//// "debug" notation
 		// aResults.then( function (vValue) {
