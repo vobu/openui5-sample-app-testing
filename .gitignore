@@ -183,3 +183,6 @@ Temporary Items
 .idea/vcs.xml
 /.idea/encodings.xml
 /webapp/test/e2e/target/report/
+
+*.act.png
+*.diff.png
