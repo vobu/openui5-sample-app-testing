@@ -2,7 +2,7 @@
 
 describe('TodoApp', function () {
 	const viewNS = 'sap.ui.demo.todo.view.';
-	it('should see the todo list w/ 2 items', function () {
+	fit('should see the todo list w/ 2 items', function () {
 		const List = element(by.control({
 			id: 'todoList',
 			viewName: `${viewNS}App`,
@@ -24,7 +24,16 @@ describe('TodoApp', function () {
 		expect(List.getAttribute("id")).toContain("todoList");
 		expect(ListItems.count()).toEqual(2);
 
-		// // verbose Promise style
+		// concise Promise style
+		// List.getAttribute("id")
+		// 	.then(sId => expect(sId).toContain("todoList"))
+		// 	.then(() => ListItems.count())
+		// 	.then(iListItems => expect(iListItems).toEqual(2))
+		// 	.catch(oError => {// oh no!
+		// 		console.error(oError);
+		// 	})
+
+		// verbose Promise style
 		// List.getAttribute("id").then(sId => {
 		// 	return expect(sId).toContain("todoList");
 		// }).then(() => {
