@@ -1,0 +1,8 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+		  xmlns:todo="sap.ui.demo.todo.control"
+		  controllerName="sap.ui.demo.todo.test.unit.view.App"
+		  displayBlock="true">
+
+	<todo:Input id="theCustomControlInput"/>
+
+</mvc:View>

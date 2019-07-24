@@ -11,18 +11,22 @@ sap.ui.define([
 
 	QUnit.module("advanced UI5 unit test cases", {});
 
-	QUnit.test("access a view model via the XML view", function (assert) {
+	QUnit.test("test a custom control (working in a 'real' XML view) in a Unit Test", function (assert) {
 		var fnDone = assert.async();
-		var oController = new AppController();
 		XMLView.create({
-			viewName: "sap/ui/demo/todo/test/unit/view/App"
+			viewName: "sap/ui/demo/todo/test/unit/view/AppWithInputCC"
 		})
 			.then(function (oView) {
-				oView.placeAt("tmp");
+				return oView.placeAt("qunit-fixture");
+			})
+			.then(function (oView) {
+				var oController = oView.getController();
+				var oInput = oController.byId("theCustomControlInput");
+				return assert.strictEqual(oInput.getPlaceholder(), "🤔", "Placeholder checked out fine");
 			})
 			.then(fnDone)
 			.catch(function (oError) {
-				"";
+				// do sth clever here
 				fnDone();
 			})
 
