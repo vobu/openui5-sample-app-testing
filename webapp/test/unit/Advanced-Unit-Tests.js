@@ -32,4 +32,26 @@ sap.ui.define([
 
 	});
 
+	QUnit.test("testing Drag and Drop", function (assert) {
+		var fnDone = assert.async();
+		XMLView.create({
+			viewName: "sap/ui/demo/todo/test/unit/view/DragAndDrop"
+		})
+			.then(function (oView) {
+				return oView.placeAt("tmp");
+			})
+			.then(function (oView) {
+				var oController = oView.getController();
+				var oList = oController.byId("theList");
+				return assert.strictEqual(oList.getItems().length, 5, "List has 5 entries");
+
+			})
+			.then(fnDone)
+			.catch(function (oError) {
+				// do sth clever here
+				fnDone();
+			})
+
+	});
+
 });
