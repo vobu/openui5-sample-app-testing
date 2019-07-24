@@ -2,6 +2,18 @@ exports.config = {
 	// profile: 'visual',
 	profile: 'integration',
 	baseUrl: 'http://localhost:8080/index.html',
+	// auth: {
+	// 	'basic-auth': {
+	// 		user: 'sitFFM',
+	// 		pass: 'rockz'
+	// 	}
+	// },
+	// authConfigs: {
+	// 	'basic-auth': {
+	// 		name: './authenticator/basicUrlAuthenticator'
+	// 	}
+	// },
+
 
 	take: true,
 	compare: true,
@@ -20,17 +32,7 @@ exports.config = {
 		name: './image/localComparisonProvider'
 	}
 
-	// , auth: {
-	// 	'basic-auth': {
-	// 		user: 'sitFFM',
-	// 		pass: 'rockz'
-	// 	}
-	// },
-	// authConfigs: {
-	// 	'basic-auth': {
-	// 		name: './authenticator/basicUrlAuthenticator'
-	// 	}
-	// }
+
 
 	// ,browsers:[{
 	// browserName: (_chrome_|chromeMobileEmulation|chromeHeadless|firefox|ie|safari|edge),
