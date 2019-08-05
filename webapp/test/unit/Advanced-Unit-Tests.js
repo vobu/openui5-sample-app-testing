@@ -3,11 +3,8 @@ sap.ui.define([
 	"sap/ui/base/ManagedObject",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/demo/todo/controller/App.controller",
-	"sap/ui/core/mvc/XMLView",
-	"sap/ui/model/json/JSONModel",
-	"sap/ui/thirdparty/sinon",
-	"sap/ui/thirdparty/sinon-qunit"
-], function (Control, ManagedObject, Controller, AppController, XMLView, JSONModel/*, sinon, sinonQunit*/) {
+	"sap/ui/core/mvc/XMLView"
+], function (Control, ManagedObject, Controller, AppController, XMLView /*, sinon, sinonQunit*/) {
 	"use strict";
 
 	QUnit.module("advanced UI5 unit test cases", {});
@@ -84,16 +81,16 @@ sap.ui.define([
 	/**
 	 * skeleton syntactic sugar implementation for spoken-like Drag'n'Drop operation
 	 *
-	 * @type {{drop: (function(): IFDnD), _dropped: null, dragOn: (function(*): IFDnD), _dragged: null, grab: (function(*): IFDnD), dragAfter: (function(*): IFDnD)}}
+	 * @type {{drop: (function(): DnD), _dropped: null, dragOn: (function(*): DnD), _dragged: null, grab: (function(*): DnD), dragAfter: (function(*): DnD)}}
 	 */
-	var IFDnD = {
+	var DnD = {
 		_dragged: null,
 		_dropped: null,
 		/**
 		 * start a Drag'n'Drop operation by picking up a control
 		 *
 		 * @param oControl - UI5 control
-		 * @returns {IFDnD}
+		 * @returns {DnD}
 		 */
 		grab: function (oControl) {
 			this._dragged = oControl;
@@ -104,7 +101,7 @@ sap.ui.define([
 		/**
 		 * move a UI5 control previously {@link grab}bed on top of this one here
 		 * @param oControl - UI5 control
-		 * @returns {IFDnD}
+		 * @returns {DnD}
 		 */
 		dragOn: function (oControl) {
 			this._dropped = oControl;
@@ -116,7 +113,7 @@ sap.ui.define([
 		/**
 		 * move a UI5 control previously {@link grab}bed on right after this one here ("between")
 		 * @param oControl - UI5 control
-		 * @returns {IFDnD}
+		 * @returns {DnD}
 		 */
 		dragAfter: function (oControl) {
 			this._dropped = oControl;
@@ -129,7 +126,7 @@ sap.ui.define([
 
 		/**
 		 * drop the previously {@link grab}bed UI5 control
-		 * @returns {IFDnD}
+		 * @returns {DnD}
 		 */
 		drop: function () {
 			triggerEvent(this._dropped, "drop");
@@ -160,7 +157,7 @@ sap.ui.define([
 
 					// dragging the first list item onto the fourth one
 					// -> will be inserted before the fourth one
-					IFDnD
+					DnD
 						.grab(oList.getItems()[0])
 						.dragOn(oList.getItems()[3])
 						.drop();
@@ -169,12 +166,12 @@ sap.ui.define([
 					assert.strictEqual(oList.getItems()[2].getTitle(), "item 0", "0 is at position 3");
 
 					// drag the next-to-last after the last list item
-					IFDnD
+					DnD
 						.grab(oList.getItems()[3])
 						.dragAfter(oList.getItems()[4])
 						.drop();
 
-					assert.strictEqual(oList.getItems()[4].getTitle(), "item 3", "3 moved after 4!")
+					assert.strictEqual(oList.getItems()[4].getTitle(), "item 3", "3 moved after 4!");
 					fnDone();
 				});
 			})
