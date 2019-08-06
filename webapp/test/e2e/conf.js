@@ -30,9 +30,20 @@ exports.config = {
 	},
 	comparisonProvider: {
 		name: './image/localComparisonProvider'
-	}
+	},
 
-
+	browsers: [{
+		browserName: "firefox",
+		browserVersion: '*',
+		platformName: "mac",
+		platformVersion: '*',
+		platformResolution: '1280x1024',
+		ui5: {
+			theme: "belize",
+			direction: "ltr",
+			mode: "cozy"
+		}
+	}]
 
 	// ,browsers:[{
 	// browserName: (_chrome_|chromeMobileEmulation|chromeHeadless|firefox|ie|safari|edge),
