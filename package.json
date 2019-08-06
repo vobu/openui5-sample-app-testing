@@ -10,27 +10,27 @@
     "postinstall": "bower install"
   },
   "devDependencies": {
-    "bower": "^1.8.0",
+    "bower": "^1.8.8",
     "grunt": "^1.0.4",
     "grunt-connect-http-auth": "^0.1.2",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-connect": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-eslint": "^20.0.0",
-    "grunt-karma": "^1.0.0",
-    "grunt-openui5": "^0.12.0",
-    "karma": "^2.0.0",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.1",
+    "grunt-eslint": "^22.0.0",
+    "grunt-karma": "^3.0.2",
+    "grunt-openui5": "^0.15.0",
+    "karma": "^4.2.0",
+    "karma-chrome-launcher": "^3.0.0",
+    "karma-coverage": "^1.1.2",
     "karma-edge-launcher": "^0.4.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-ie-launcher": "^1.0.0",
     "karma-openui5": "~0.2.3",
     "karma-opera-launcher": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.4",
-    "karma-qunit": "^1.2.1",
+    "karma-qunit": "^4.0.0",
     "karma-safari-launcher": "^1.0.0",
     "karma-sinon": "^1.0.5",
-    "qunitjs": "^2.0.0"
+    "qunitjs": "^2.4.1"
   }
 }
