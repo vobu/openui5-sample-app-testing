@@ -2,7 +2,7 @@
 
 describe('TodoApp', function () {
 	const viewNS = 'sap.ui.demo.todo.view.';
-	fit('should see the todo list w/ 2 items', function () {
+	it('should see the todo list w/ 2 items', function () {
 		const List = element(by.control({
 			id: 'todoList',
 			viewName: `${viewNS}App`,
