@@ -12,6 +12,7 @@
 					</Toolbar>
 				</subHeader>
 				<content>
+					<Text id="InvisibleText" visible="false" />
 					<Input class="todoInput" id="addTodoItemInput" value="{new>/newTodo}"
 						   placeholder="{i18n>INPUT_PLACEHOLDER}" change="addTodo"/>
 					<List id="todoList"

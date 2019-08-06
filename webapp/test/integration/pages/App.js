@@ -6,8 +6,9 @@ sap.ui.require([
 	"sap/ui/test/matchers/Properties",
 	"sap/ui/test/actions/EnterText",
 	"sap/ui/test/actions/Press",
-	"sap/ui/test/matchers/I18NText"
-], function (Opa5, Common, AggregationLengthEquals, PropertyStrictEquals, Properties, EnterText, Press, I18NText) {
+	"sap/ui/test/matchers/I18NText",
+	"sap/ui/demo/todo/lib/underscore-min"
+], function (Opa5, Common, AggregationLengthEquals, PropertyStrictEquals, Properties, EnterText, Press, I18NText /*, _*/) {
 	"use strict";
 
 	var sViewName = "sap.ui.demo.todo.view.App";
@@ -235,6 +236,38 @@ sap.ui.require([
 						},
 						errorMessage: "List does not have expected number of items '" + iItemCount + "'."
 					});
+				},
+
+				iMakeSureThereIsNo: function (sKind, sIdentifier) {
+					return this.waitFor({
+						controlType: "sap.m.App",
+						matchers: function (oApp) {
+							var aMatches = [];
+							var vMap = jQuery("#" + oApp.getId()).find("*");
+							_.each(vMap, function ($oControl) {
+								var oControl = jQuery($oControl).control();
+								if (oControl && oControl[0]) {
+									switch (sKind) {
+										case "module":
+											if (oControl[0].getMetadata().getName() === sIdentifier) {
+												aMatches.push(oControl[0])
+											}
+											break;
+										case "id":
+											if (oControl[0].getId() === sIdentifier) {
+												aMatches.push(oControl[0]);
+											}
+									}
+								}
+							});
+
+							return aMatches.length === 0;
+						},
+						success: function () {
+							Opa5.assert.ok(true, "no control found of kind " + sKind + " with identiier" + sIdentifier)
+						},
+						errorMessage: "ugh, found a control found of kind " + sKind + " with identiier" + sIdentifier
+					})
 				}
 			}
 
